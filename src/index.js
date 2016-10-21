@@ -19,9 +19,15 @@ class APP extends Component {
 			selectedVideo: null
 		};
 
-		YTSeach({key: API_KEY, term: 'surfboards'}, videos => {
+		this.videoSearch('surfboards');
+
+	}
+
+	videoSearch(term) {
+
+		YTSeach({key: API_KEY, term}, videos => {
 			this.setState({
-				videos: videos,
+				videos,
 				selectedVideo: videos[0]
 			});
 		});
@@ -32,7 +38,7 @@ class APP extends Component {
 
 		return (
 			<div>
-				<SearchBar />
+				<SearchBar onSearchTermChange={term => this.videoSearch(term)} />
 				<VideoDetail video={this.state.selectedVideo}/>
 				<VideoList
 					onVideoSelect={selectedVideo => this.setState({selectedVideo})}
